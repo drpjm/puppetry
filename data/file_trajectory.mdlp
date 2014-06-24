@@ -1,0 +1,5 @@
+# a simple demo play
+players = magnus;
+
+#       duration    place   Action(argument)
+magnus: 10, region1, OpenLoopFromFile(0);

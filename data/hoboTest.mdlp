@@ -1,0 +1,6 @@
+# a simple play that tests new modes on the hobo clown puppet
+players = hoboClown;
+
+#hoboClown: 6, region1, WaveLeft(75);
+#hoboClown: 15, region1, Walk(50);
+hoboClown: 10, region1, WaveRight(100);

@@ -1,0 +1,12 @@
+# a simple demo play
+players = magnus;
+
+#magnus: 10, region1, Walk(60);
+#magnus: 5, region1, WaveRight(100);
+
+# note: new syntax!!!
+(magnus, WaveLeft(100), region1, 6);
+
+#magnus: 8, region1, Walk(100);
+#magnus: 10, region1, Run(100);
+#magnus: 5, region1, FullWave(100);
