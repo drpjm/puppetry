@@ -1,0 +1,74 @@
+Package edu.gatech.grits.puppetctrl.mdl;
+
+Helpers
+  all           = [0 .. 127];
+  digit         = ['0'..'9'];
+  nonzero_digit = ['1'..'9'];
+  nondigit      = [ '_' + [ [ 'a' .. 'z' ] + [ 'A' .. 'Z' ] ] ];
+  lowercase     = ['a' .. 'z'];
+
+  ht     = 0x0009;
+  lf     = 0x000a;
+  ff     = 0x000c;
+  cr     = 0x000d;
+  line_terminator = cr | lf | cr lf;
+  input_char = [all - [cr + lf]];
+  sp     = ' ';
+
+  pound = '#';
+  minus = '-';
+  tilde = '~';
+
+  digit_sequence = minus? digit+;
+
+  unit_suffix = lowercase+;
+
+  fractional_constant = digit_sequence? '.' digit_sequence |
+                        digit_sequence;
+
+  decimal_constant = minus? nonzero_digit digit*;
+
+  infinite_constant = digit?tilde;
+
+  classpath = (nondigit nondigit* '.')+;
+
+Tokens
+  white_space = (sp | ht | ff | line_terminator)*;
+  comment = '#' input_char* line_terminator?;
+
+  players = 'players';
+  not = 'not';
+  and = 'and';
+  or = 'or';
+  xor = 'xor';
+  identifier = classpath nondigit ( digit | nondigit )* |
+               nondigit ( digit | nondigit )*;
+
+  number = fractional_constant unit_suffix? |
+           decimal_constant unit_suffix? |
+           infinite_constant;
+
+  l_par = '(';
+  r_par = ')';
+  equals = '=';
+  comma   = ',';
+  colon = ':';
+  semicolon = ';';
+  star = '*';
+  dot = '.';
+
+Ignored Tokens
+  white_space,
+  comment;
+
+Productions
+  
+  mdlp = P.players P.modelist+;
+  players = T.players equals [agent_list]:identifier+ semicolon;
+  modelist = P.mode+ semicolon;
+  /*
+  	mode = [agent_name]:identifier colon [time_length]:number [c1]:comma [region_name]:identifier [c2]:comma [action_name]:identifier [p1]:l_par [scaling]:number [p2]:r_par semicolon;
+  */
+  mode = [p1]:l_par [agent_name]:identifier [c1]:comma [action_name]:identifier [p2]:l_par [scaling]:number [p3]:r_par [c2]:comma [region_name]:identifier [c3]:comma [time_length]:number [p4]:r_par;
+  
+  
